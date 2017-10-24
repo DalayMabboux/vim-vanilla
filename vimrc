@@ -26,18 +26,15 @@ set hlsearch                             " highlight search terms
 set incsearch                            " show search matches as you type
 set showcmd
 set wildmenu
-let mapleader=","                        " Map the leader from \ to ,
 set path+=**
 set splitbelow                           " Open new split panes to right and bottom, which feels more natural than Vim’s default
 set splitright
 set laststatus=2
 set cursorline
+let mapleader=" "
 
 filetype plugin indent on
 syntax enable
-
-nmap <silent> <leader>ev :e $MYVIMRC<CR>   " Quickly edit vimrc
-nmap <silent> <leader>sv :so $MYVIMRC<CR>  " Save vimrc
 
 " Easy window navigation
 map <C-h> <C-w>h
@@ -56,12 +53,14 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_html_checkers = ['tidy']
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
 
-" NERDTree
-map <C-n> :NERDTreeToggle<CR>
-
-" CtrlP
-map <leader>b :CtrlPBuffer<CR>
-
 " Ag
 let g:ackprg = 'ag --nogroup --nocolor --column'
-nnoremap <Leader>a :Ack!<Space>
+
+" Convenience mappings
+nnoremap <silent> <leader>p :bprev<Return>|        " Switch to last buffer
+nnoremap <silent> <leader>ev :e $MYVIMRC<CR>|      " Quickly edit vimrc
+nnoremap <silent> <leader>sv :so $MYVIMRC<CR>|     " Save vimrc
+nnoremap <silent> <leader>n :NERDTreeToggle<CR>|   " Open NERDtree
+nnoremap <silent> <leader>b :CtrlPBuffer<CR>|      " Open CtrlPBuffer
+nnoremap <silent> <leader>a :Ack!<Space>
+" Search using AG
