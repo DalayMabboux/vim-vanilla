@@ -63,3 +63,4 @@ nnoremap <silent> <leader>sv :so $MYVIMRC<CR>|     " Save vimrc
 nnoremap <silent> <leader>n :NERDTreeToggle<CR>|   " Open NERDtree
 nnoremap <silent> <leader>b :CtrlPBuffer<CR>|      " Open CtrlPBuffer
 nnoremap <silent> <leader>a :Ack!<Space>
+nnoremap <silent> <leader>s :update<CR>|           " Save the current buffer if it has changed
