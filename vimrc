@@ -4,6 +4,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'mileszs/ack.vim'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'inkarkat/vim-mark'
+Plug 'vim-scripts/ingo-library'
 call plug#end()
 
 set background=dark
