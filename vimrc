@@ -35,19 +35,38 @@ set laststatus=2
 set cursorline
 let mapleader=" "
 
-filetype plugin indent on
-syntax enable
-
 " Easy window navigation
 map <C-h> <C-w>h
 map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
+" Statusline
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l:%c
+set statusline+=\  
+
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -62,7 +81,17 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 nnoremap <silent> <leader>p :bprev<Return>|        " Switch to last buffer
 nnoremap <silent> <leader>ev :e $MYVIMRC<CR>|      " Quickly edit vimrc
 nnoremap <silent> <leader>sv :so $MYVIMRC<CR>|     " Save vimrc
-nnoremap <silent> <leader>n :NERDTreeToggle<CR>|   " Open NERDtree
+nnoremap <silent> <leader>t :NERDTreeToggle<CR>|   " Open NERDtree
 nnoremap <silent> <leader>b :CtrlPBuffer<CR>|      " Open CtrlPBuffer
 nnoremap <silent> <leader>a :Ack!<Space>
-nnoremap <silent> <leader>s :update<CR>|           " Save the current buffer if it has changed
+nnoremap <silent> <leader>s :w<CR>
+nnoremap <silent> <leader>q :q<CR>
+nnoremap <silent> <leader>g :reg<CR>
+nnoremap <silent> <leader>fx :%!xmllint % --format<CR>   " Format XML
+nnoremap <silent> <leader>fj :%!python -m json.tool<CR>  " Format JSON
+nnoremap Q @@ " 'Q' switches you to Ex mode ... in most of the cases thats not what you want
+
+let g:xml_syntax_folding=1
+au FileType xml setlocal
+filetype plugin indent on
+syntax enable
